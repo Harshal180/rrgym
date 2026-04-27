@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api";   // ✅ IMPORTANT
+import api, { ADMIN_TOKEN_KEY } from "../../services/api";
 import GYM_CONFIG from "../../config/gymConfig";
 
 const AdminLogin = () => {
@@ -23,7 +23,6 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Check if already logged in
   useEffect(() => {
     api.get("/api/admin/me")
       .then(() => navigate("/admin"))
@@ -46,16 +45,15 @@ const AdminLogin = () => {
         password,
       });
 
-      // ✅ SAVE TOKEN (for cross-origin bearer auth fallback)
       if (res.data?.token) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem(ADMIN_TOKEN_KEY, res.data.token);
+        localStorage.removeItem("token");
       } else {
+        localStorage.removeItem(ADMIN_TOKEN_KEY);
         localStorage.removeItem("token");
       }
 
-      // ✅ REDIRECT
       navigate("/admin/dashboard");
-
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -72,8 +70,6 @@ const AdminLogin = () => {
       sx={{ bgcolor: "#f1f5f9" }}
     >
       <Paper elevation={4} sx={{ p: 4, width: 400, borderRadius: 3 }}>
-        
-        {/* Header */}
         <Box textAlign="center" mb={3}>
           <Box
             sx={{
@@ -88,7 +84,7 @@ const AdminLogin = () => {
               mb: 2,
             }}
           >
-            <Typography fontSize={24}>💪</Typography>
+            <Typography fontSize={24}>A</Typography>
           </Box>
 
           <Typography variant="h5" fontWeight="bold">
@@ -100,9 +96,7 @@ const AdminLogin = () => {
           </Typography>
         </Box>
 
-        {/* Form */}
         <Box component="form" onSubmit={handleLogin}>
-          
           <TextField
             fullWidth
             label="Username"
@@ -145,7 +139,6 @@ const AdminLogin = () => {
             {loading ? <CircularProgress size={22} /> : "Login"}
           </Button>
         </Box>
-
       </Paper>
     </Box>
   );

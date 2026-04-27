@@ -104,6 +104,7 @@ const verifyOTP = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Login successful",
+      token,
       data: {
         id: member.id,
         email: member.email,

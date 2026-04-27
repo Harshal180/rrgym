@@ -1,7 +1,7 @@
 // src/services/adminService.js
 // All admin authentication and trainer management API calls.
 
-import api from "./api";
+import api, { ADMIN_TOKEN_KEY } from "./api";
 
 const adminService = {
   // Admin login
@@ -21,6 +21,7 @@ const adminService = {
     try {
       return await api.post("/api/admin/logout");
     } finally {
+      localStorage.removeItem(ADMIN_TOKEN_KEY);
       localStorage.removeItem("token");
     }
   },

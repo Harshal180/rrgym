@@ -1,7 +1,7 @@
 // src/services/authService.js
 // All member authentication API calls in one place.
 
-import api from "./api";
+import api, { USER_TOKEN_KEY } from "./api";
 
 const authService = {
   // Send OTP to email/mobile
@@ -21,8 +21,13 @@ const authService = {
     api.get("/api/auth/profile"),
 
   // Log out
-  logout: () =>
-    api.post("/api/auth/logout"),
+  logout: async () => {
+    try {
+      return await api.post("/api/auth/logout");
+    } finally {
+      localStorage.removeItem(USER_TOKEN_KEY);
+    }
+  },
 };
 
 export default authService;

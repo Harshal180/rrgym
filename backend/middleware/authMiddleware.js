@@ -52,6 +52,9 @@ const adminOnly = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.user_type !== "admin") {
+            return res.status(403).json({ message: "Admin access required" });
+        }
 
         req.user = decoded;
         next();

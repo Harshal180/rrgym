@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { USER_TOKEN_KEY } from "../../services/api";
 import authService from "../../services/authService";
 
 const Login = () => {
@@ -111,6 +112,10 @@ const Login = () => {
             const res = await authService.verifyOTP(emailOrMobile, finalOtp);
             const member = res.data?.data;
             const type = member?.member_type?.toLowerCase();
+
+            if (res.data?.token) {
+                localStorage.setItem(USER_TOKEN_KEY, res.data.token);
+            }
 
             if (type === "trainer") {
                 navigate("/admin");

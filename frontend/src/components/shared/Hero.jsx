@@ -52,7 +52,7 @@ export default function HomePage() {
                         >
                             <Box
                                 component="img"
-                                src="../assets/img1.jpeg"
+                                src="/assets/img1.jpeg"
                                 alt="Gym Left"
                                 sx={{
                                     width: "100%",
@@ -74,7 +74,7 @@ export default function HomePage() {
                         >
                             <Box
                                 component="img"
-                                src="../assets/img2.jpeg"
+                                src="/assets/img2.jpeg"
                                 alt="Gym Right"
                                 sx={{
                                     width: "100%",

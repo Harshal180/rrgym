@@ -24,6 +24,8 @@ app.use(cors({
         }
     },
     credentials: true,
+    // Required for cross-origin cookie sending (Netlify frontend → AWS backend)
+    exposedHeaders: ["set-cookie"],
 }));
 
 app.use(require("helmet")({ crossOriginResourcePolicy: { policy: "cross-origin" } }));

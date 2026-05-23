@@ -28,8 +28,10 @@ const signMemberToken = (member) =>
 
 const cookieOptions = () => ({
   httpOnly: true,
+  // SameSite=None + Secure=true required for cross-origin cookies
+  // (frontend on Netlify, backend on AWS are different domains)
   secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   maxAge: 8 * 60 * 60 * 1000,
 });
 
@@ -167,7 +169,7 @@ const getProfile = async (req, res) => {
 const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     secure: process.env.NODE_ENV === "production",
   });
   res.json({ message: "Logged out successfully" });

@@ -14,7 +14,7 @@ const loginLimiter = rateLimit({
 const cookieOptions = () => ({
   httpOnly: true,
   secure:   process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none required for cross-origin (Netlify→AWS)
   maxAge:   8 * 60 * 60 * 1000,
 });
 
@@ -193,7 +193,7 @@ const toggleTrainer = async (req, res) => {
 const adminLogout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // none required for cross-origin (Netlify→AWS)
     secure:   process.env.NODE_ENV === "production",
   });
   res.json({ message: "Logged out successfully" });

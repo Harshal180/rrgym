@@ -4,6 +4,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react()],
   server: {
+    // Proxy only applies in local dev (npm run dev).
+    // In production (Netlify), VITE_API_URL env var points directly to AWS backend.
     proxy: {
       "/api": {
         target: "http://localhost:5000",

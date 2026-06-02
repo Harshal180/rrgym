@@ -1,12 +1,11 @@
-import api from "../../services/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GYM_CONFIG from "../../config/gymConfig";
 import AlertModal from "../../components/ui/AlertModal";
-import { BASE_URL } from "../../services/api";
+import GYM_CONFIG from "../../config/gymConfig";
+import { useMembers } from "../../context/MembersContext";
 import useAlert from "../../hooks/useAlert";
 import useBillGenerator from "../../hooks/useBillGenerator";
-import { useMembers } from "../../context/MembersContext";
+import api from "../../services/api";
 
 // ─── Bill Action Modal ─────────────────────────────────────────────────────────
 const BillActionModal = ({ open, memberName, onDownload, onSendEmail, onClose, isSending }) => {
@@ -547,7 +546,7 @@ const AddMember = () => {
                                     <label className="form-label">Start Date</label>
                                     <input type="date" name="startDate" className="form-control"
                                         value={member.startDate} onChange={handleChange}
-                                        min={today} disabled={member.memberType !== "Member"} />
+                                        disabled={member.memberType !== "Member"} />
                                 </div>
                             </div>
 

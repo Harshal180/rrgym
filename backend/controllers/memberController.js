@@ -70,7 +70,9 @@ const getAllMembers = async (req, res) => {
 // ─── GET ALL TRAINERS ─────────────────────────────────────────────────────────
 const getAllTrainers = async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM members WHERE member_type = 'Trainer'");
+    const [rows] = await db.query(
+      "SELECT id, first_name, last_name, member_type, image FROM members WHERE member_type = 'Trainer'"
+    );
     res.json(rows);
   } catch (err) {
     console.error("getAllTrainers error:", err);

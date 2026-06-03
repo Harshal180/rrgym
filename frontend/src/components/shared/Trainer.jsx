@@ -18,7 +18,7 @@ export default function Trainer() {
 
     useEffect(() => {
         axios
-            .get(`${BASE_URL}/api/members/trainers`)  // ✅ new endpoint
+            .get(`${BASE_URL}/api/members/public/trainers`)  // public — no auth needed for About Us
             .then((res) => {
                 setTrainers(res.data);                // ✅ no filter needed
             })
